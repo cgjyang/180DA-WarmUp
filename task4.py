@@ -4,20 +4,22 @@ import cv2
 cap = cv2.VideoCapture(0)
 
 # HSV color range for blue
-lower = np.array([100, 150, 0])
-upper = np.array([140, 255, 255])
+lower = np.array([100, 0, 0])
+upper = np.array([255, 100, 100])
 
 while(True):
 
     ret, frame = cap.read()
+
+    # no frame found exit
     if not ret: 
         break
 
     # BGR to HSV
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # make a mask with HSV range
-    mask = cv2.inRange(hsv, lower, upper)
+    mask = cv2.inRange(frame, lower, upper)
 
     # find contours in mask
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
